@@ -8,6 +8,7 @@ function ProductList({ onHomeClick }) {
     const [showCart, setShowCart] = useState(false);
     const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
     const [addedToCart, setAddedToCart] = useState({});
+    const cart = useSelector(state => state.cart.items);
     const dispatch = useDispatch();
 
     const calculateTotalQuantity = () => {
@@ -309,10 +310,11 @@ function ProductList({ onHomeClick }) {
                               <div className="product-title">{plant.name}</div> {/* Display plant name */}
                               {/* Display other plant details like description and cost */}
                               <div className="product-description">{plant.description}</div> {/* Display plant description */}
-                              <div className="product-cost">${plant.cost}</div> {/* Display plant cost */}
+                              <div className="product-cost">{plant.cost}</div> {/* Display plant cost */}
                               <button
-                                className="product-button"
+                                className={ addedToCart[plant.name] ? "product-button btn-disabled" : "product-button"}
                                 onClick={() => handleAddToCart(plant)} // Handle adding plant to cart
+                                disabled={addedToCart[plant.name]}
                               >
                                 Add to Cart
                               </button>
